@@ -1,4 +1,9 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+let rawApiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+// Normalize API_URL: append '/api' if it's not a relative path and doesn't already end with it
+if (rawApiUrl && rawApiUrl.startsWith('http') && !rawApiUrl.endsWith('/api')) {
+  rawApiUrl = `${rawApiUrl}/api`;
+}
+const API_URL = rawApiUrl;
 
 const getHeaders = () => {
   const token = localStorage.getItem('notes_app_token');
